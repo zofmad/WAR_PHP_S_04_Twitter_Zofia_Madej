@@ -1,0 +1,32 @@
+folder pod aplikacje-nie trzeba bo repozytorium jest folderem
+mozna dodac readme/ publiczne 
+
+commity co kazde cwiczenie
+
+git ignore ktore ignorowac np nb project z netbeansa
+
+
+git ignore nazwa srodowiska-NetBeans
+
+
+
+nbproject/ bez private to ukryje caly folder
+
+
+hashowanie hasla - dla bezpieczenstwa-funkcja password_hash()
+9prezentacja hasła)
+
+string password_hash
+ ( string $password , integer $algo [, array $options ] )
+
+password default - aktualny
+
+unikalne-UNIQUE!!
+
+sprawdzenie hasla password_verify
+
+/*mozna dodac readme/ publiczne 
+
+commity co kazde cwiczenie
+
+git ignore ktore ignorowac np nb project z netbeansa
