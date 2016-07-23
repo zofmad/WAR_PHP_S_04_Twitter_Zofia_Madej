@@ -5,12 +5,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+//plik do laczenia z baza danych
 
 $serverName='localhost';
 $userName='root';
 $password='coderslab';
-$baseName='WAR_PHP_S_04_Twitter_Zofia_Madej';//jeszcze nie mamy -pusta //domyslnie-serwer
+$baseName='WAR_PHP_S_04_Twitter_Zofia_Madej';
+//jeszcze nie mamy -pusta //domyslnie-serwer
 
 $conn=new mysqli($serverName, 
         $userName, $password, $baseName);

@@ -5,6 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//strona logowania 
+
 session_start();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -13,44 +16,50 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     $email=isset($_POST['email']) ? 
             $conn->real_escape_string(trim($_POST['email'])) : null;//zeby nie bylo sql injection
-    $password=isset($_POST['password']) ? trim($_POST['password']) : null;
-    if(strlen($email)>=5 && strlen($password)){     
-        if($userId = User::logIn($conn, $email, $password)){//udalo sie zalogowac
-            $_SESSION['loggedUserId']=$userId;//zapisywanie id zalogowanego uzytkownika do sesji
+    
+    $password=isset($_POST['password']) ?
+            trim($_POST['password']) : null;
+    
+    if(strlen(trim($email)) && strlen($password)){  //bez 5  
+        if($userId = User::logIn($conn, $email, $password)){
+        //udalo sie zalogowac-email i haslo poprawne   
+            
+            $_SESSION['loggedUserId']=$userId;
             header('Location: index.php'); //przekierowanie do strony glownej-
             //jesli zalogowany
             //do strony glownej
-            //echo 'ss';
         }
         else{
-            echo 'Nie udalo sie zalogowac';
-        }
-                
-        
-        
+            echo 'Nie udalo sie zalogowac.';//lukasz
+        }  
     }
+    //echo 'Nie udalo sie zalogowac. Bledny login lub haslo';
 }
 
 ?>
 <html>
-    <head></head>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
     <body>
         <form method="POST">
             <fieldset>
                 <label>
                     E-mail:
-                    <input type="text" name="email">
+                    <input type="text" name="email" required>
                 </label>
                 <br>
                 <label>
                     Password:
-                    <input type="password" name="password">
+                    <input type="password" name="password" required>
                 </label>
                 <br>
             </fieldset>
             <input type="submit" value="Login">
         </form>
         <br>
+<!--        link do strony tworzenia uzytkownika-->
         <a href="register.php">Registration</a>
     </body>
 </html>

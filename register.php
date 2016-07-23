@@ -5,17 +5,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//formularz do rejestracji:
 
-//fieldset-zestaw pol
-
+//strona tworzenia uzytkownika
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     require_once "src/connection.php";
     require_once "src/User.php";
     
-    $email = isset($_POST['email']) ? 
+    $email = (isset($_POST['email']) && strlen(trim($_POST['email'])) >= 5) ? 
             $conn->real_escape_string(trim($_POST['email'])) : null;
             //real_escape_string-czyszczenie znakow spejalnych-zwrocona 
             //zmienna moze byc bezpiecznie uzyta w zpytaniach SQL
@@ -30,18 +28,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             /////tutaj nie sprawdzamy sql injection, 
             //bo nie przesylamy tego hasla,
             // tylko sprawdzamy
-    $fullName=isset($_POST['fullName']) ? $conn->real_escape_string(trim($_POST['fullName'])) : null;
-    //
+    $fullName=isset($_POST['fullName']) ? 
+            $conn->real_escape_string(trim($_POST['fullName'])) : ' ';//bylo null
+    //full Name nie jest wymagane w tabeli
     
-    $user=User::getUserByEmail($conn, $email);
-    if($email && $password && $password==$passwordConfirmation && !$user){
-        $newUser = new User();//jesli wszystko sie zgadza dodajemy uzytkownika
+    //metoda sprawdzajaca czy email jest juz w bazie danych 
+    $user=User::getUserByEmail($conn, $email); 
+    if($email && $password && $password === $passwordConfirmation && !$user){
+        //gdy wszystkie dane poprawne i uzytkownika nie ma w systemie
+        //dodajemy uzytkownika
+        $newUser = new User();
         $newUser->setEmail($email);
         $newUser->setHashedPassword($password);//zahashowane haslo
         $newUser->setFullName($fullName);
         $newUser->setActive(1);
         if($newUser->saveToDB($conn)){
-            header('Location login.php');
+            //powinno byc na strone glowna 
+            header('Location: login.php');//przekierowanie na strone logowania
         }
         else{
             echo 'Rejestracja nie powiodla sie';
@@ -49,8 +52,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     else{
         if($user){//jesli user juz istnieje-
-        //czyli jest juz jeden taki mail w bazie danych
-            echo 'Podany adres e-mail juz istnieje w bazie danych';
+        //czyli jest juz taki email w bazie danych-nie ma przekierowania
+            
+            //komunikat o zajetym adresie email
+            echo 'Podany adres e-mail juz istnieje w bazie danych<br>';
         }else{
             echo 'Nieprawidlowe dane<br>';  
         }
@@ -60,7 +65,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
 ?>
+<!--//formularz do rejestracji:
 
+//fieldset-zestaw pol-->
 <meta charset="UTF-8">
 <form method="POST">
     <fieldset>
