@@ -13,12 +13,14 @@
 session_start();
 
 
-if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['tweetId'])
+if(!(isset($_SESSION['loggedUserId']) 
+        && (($_SERVER['REQUEST_METHOD'] === 'GET' 
+                && isset($_GET['tweetId']))
         || ($_SERVER['REQUEST_METHOD'] === 'POST' 
                 && isset($_POST['tweet_id']) 
-                && isset($_POST['comment_text'])))){
+                && isset($_POST['comment_text']))))){
     
-    header('Location: login.php');
+    header('Location: index.php');
 }
 
 require_once 'src/Tweet.php';
@@ -56,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' &&
         //var_dump($userId);
         $comment->setUserId($userId);
         
-        $tweetId = (int) $_POST['tweet_id'];
+        //$tweetId = (int) $_POST['tweet_id'];
         //var_dump($tweetId);
         $comment->setTweetId($tweetId);
         
@@ -146,8 +148,4 @@ $conn = NULL;
     </fieldset>
 </form>
             
-<?php
- 
-
-?>
 

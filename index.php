@@ -24,7 +24,7 @@ Id uzytkownika: <?php echo $_SESSION['loggedUserId'];//moze byc bez srednika ? z
 ?> 
 <meta charset="UTF-8">
 <a href='logout.php'>Logout</a>
-<!--<a href=''></a>-->
+<a href='userDisplay.php?user_id=13'>userDisplay</a>
 
 
 <!--formularz do stworzenia wpisu-->
@@ -87,6 +87,8 @@ foreach($tweets as $tweet){
         Informacje o wpisie</a>";
     
 }
+$conn->close();
+$conn = null;
 
 
 ?>

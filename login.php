@@ -34,6 +34,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }  
     }
     //echo 'Nie udalo sie zalogowac. Bledny login lub haslo';
+    $conn->close();
+    $conn = null;
 }
 
 ?>

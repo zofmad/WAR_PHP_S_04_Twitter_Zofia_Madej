@@ -50,6 +50,7 @@ CREATE TABLE Message(
     FOREIGN KEY (receiver_id) REFERENCES User(id)
 )
 
+-- mozna TINYINT(1)
 
 -- is_read - pole trzymajace informacje
 --  czy wiadomosc zsostala przeczytana
@@ -82,3 +83,22 @@ SELECT * FROM Comment WHERE Comment.tweet_id=1;
 SELECT * FROM Comment 
 WHERE Comment.user_id=14 AND Comment.tweet_id=1
 ORDER BY Comment.creation_date DESC;
+
+SELECT * FROM Comment 
+WHERE Comment.tweet_id=1 
+ORDER BY Comment.creation_date DESC;
+
+
+
+
+INSERT INTO Message
+(sender_id, receiver_id, message_text, creation_date, is_read) 
+VALUES (13, 14, 'tekst', NOW(), 0);
+
+UPDATE Message SET 
+sender_id=13, receiver_id=14, message_text='tekst2', 
+creation_date=NOW(), is_read=0 
+WHERE Message.id=1;
+
+
+SELECT * FROM Message WHERE Message.id=1;

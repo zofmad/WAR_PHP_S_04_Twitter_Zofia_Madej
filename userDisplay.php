@@ -6,15 +6,20 @@
  * and open the template in the editor.
  */
 
+//strona wyswietlania uzytkownika
+
 //require_once 'index.php'; 
 
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId'])){
+if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id']))){
+    header("Location: index.php");
+}
+
     require_once 'src/connection.php';
     require_once 'src/Tweet.php';
     require_once 'src/Comment.php';//mozna zalaczyc do jednego pliku
     // i dolaczac plik
     
-    $userId = is_numeric($_GET['userId']) ? $_GET['userId'] : null;
+    $userId = is_numeric($_GET['user_id']) ? $_GET['user_id'] : null;
     //var_dump(is_numeric($userId));
     
     //var_dump($userId);
@@ -42,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId'])){
     $conn->close();
     $conn = NULL;
 
-}
+
 //else{
 //    header('Location: login.php'); //przekierowanie na strone logowania
 //}
@@ -51,7 +56,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['userId'])){
 ?>
 <!--guzik do wyslania wiadomosci do uzytkownika-->
 <meta charset='UTF-8'>
-<form action="#" method='POST'>
+<form action="addMessage.php" method='POST'>
+    <input type='hidden' name='user_id' value="<?php echo $userId;?>"> 
     <label>
         <button type='submit' value='send_message'>
             Wyslij wiadomosc do uzytkownika</button>

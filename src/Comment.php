@@ -8,10 +8,17 @@
 
 
 class Comment{
-    static public function loadAllCommentsByTweetId(mysqli $conn, $tweetId, $userId){
+    
+    static public function loadAllCommentsByTweetId(mysqli $conn, $tweetId){
+//        $sqlLoadComment = "SELECT * FROM Comment 
+//WHERE Comment.user_id=$userId AND Comment.tweet_id=$tweetId
+//ORDER BY Comment.creation_date DESC;"; 
+//niepotrzebne userId
+        
         $sqlLoadComment = "SELECT * FROM Comment 
-WHERE Comment.user_id=$userId AND Comment.tweet_id=$tweetId
-ORDER BY Comment.creation_date DESC;";
+            WHERE Comment.tweet_id=1 
+            ORDER BY Comment.creation_date DESC;";
+        
         $result=$conn->query($sqlLoadComment);
         if($result){
             if($result->num_rows > 0){
@@ -88,7 +95,7 @@ ORDER BY Comment.creation_date DESC;";
                     . "SET "
                     . "user_id=$this->userId, "
                     . "tweet_id=$this->tweetId, "
-                    . "creation_date=NOW(), "
+                    . "creation_date='$this->creationDate', "
                     . "text='$this->text' "
                     . "WHERE Comment.id=$this->id";
             if($conn->query($sqlUpdateComment)){

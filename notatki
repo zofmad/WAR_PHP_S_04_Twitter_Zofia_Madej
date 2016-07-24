@@ -30,3 +30,17 @@ sprawdzenie hasla password_verify
 commity co kazde cwiczenie
 
 git ignore ktore ignorowac np nb project z netbeansa
+
+
+
+statycna - wtedy kiedy nie potrzebujemy obiketu np zaladuj wszystkie tweety
+potzrbujemy obiektu - niestetyczna
+
+2 statyczne metody  - odbieranie i wysylanie
+
+
+po co tworzymy obiekety? zeby strona byla prosta, dla wielu danych 
+id nadawane automatycznie
+
+male klocki zeby mozna bylo zmieniac program
+

@@ -9,6 +9,7 @@
 //require_once 'connection.php'; -nie trzeba, $conn jako parametr funkcji
 
 class User {
+//    static 
     
     static public function logIn(mysqli $conn, $email, $password){
         $sql = "SELECT * FROM User WHERE User.email='$email'";
@@ -51,12 +52,9 @@ class User {
         }
         else{
             return false;
-        }
-        
+        }      
     }
-    
-    
-    
+
     private $id;
     private $email;
     private $password;
@@ -69,6 +67,14 @@ class User {
         $this->password='';
         $this->fullName='';
         $this->active = 0;
+    }
+    
+    public function loadAllMessagesBySenderId(mysqli $conn){
+        return Message::loadAllMessagesBySenderId($conn, $this->id);
+    }
+       
+    public function loadAllMessagesByReceiverId(mysqli $conn){
+        return Message::loadAllMessagesByReceiverId($conn, $this->id);
     }
     
     public function loadAllTweetsByUserId($conn){
