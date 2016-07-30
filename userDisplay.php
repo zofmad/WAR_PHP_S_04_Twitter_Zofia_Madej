@@ -1,3 +1,4 @@
+<meta charset='UTF-8'>
 <?php
 
 /* 
@@ -9,6 +10,7 @@
 //strona wyswietlania uzytkownika
 
 //require_once 'index.php'; 
+
 
 if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id']))){
     header("Location: index.php");
@@ -66,4 +68,3 @@ if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id']))){
     
 
 
-<!--pozamykac polaczenia!-->

@@ -10,7 +10,6 @@
 
 //strona z formularzem do wyslania wiadomosci
 
-
 session_start();
 if(!($_SERVER['REQUEST_METHOD'] === 'POST' 
         && isset($_POST['user_id']) 
@@ -18,7 +17,7 @@ if(!($_SERVER['REQUEST_METHOD'] === 'POST'
     header('Location: index.php');
 }
 
-require_once 'src/Message.php';
+
 require_once 'src/common.php';
 
 $userId = is_numeric($_POST['user_id']) ? (int) $_POST['user_id'] : null;
@@ -26,6 +25,7 @@ $userId = is_numeric($_POST['user_id']) ? (int) $_POST['user_id'] : null;
 <a href='index.php'>Strona glowna</a>
 <a href='userDisplay.php?user_id=<?php echo $userId; ?>'>
     Powrot do strony wyswietlania uzytkownika</a>
+
 <?php
 //obsluzenie formularza
 
@@ -60,7 +60,7 @@ if(isset($_POST['message_text'])){ //czy zmienna przeslana
 
         //$message->showMessage();
         if($message->createMessage($conn)){
-            echo 'Wyslano wiadomosc<br>';
+            echo '<br>Wyslano wiadomosc<br>';
         }
     }
     

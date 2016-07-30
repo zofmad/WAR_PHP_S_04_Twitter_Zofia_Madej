@@ -23,11 +23,11 @@ if(!(isset($_SESSION['loggedUserId'])
     header('Location: index.php');
 }
 
-require_once 'src/Tweet.php';
-require_once 'src/Comment.php';
-require_once 'src/connection.php';
-require_once 'src/User.php';
-//require_once 'src/common.php';
+//require_once 'src/Tweet.php';
+//require_once 'src/Comment.php';
+//require_once 'src/connection.php';
+//require_once 'src/User.php';
+require_once 'src/common.php';
  
     
  if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['tweetId'])){  
@@ -48,13 +48,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' &&
             $conn->real_escape_string(trim($_POST['comment_text'])) : '';
     
     $tweetId = (int) $_POST['tweet_id'];
+    $tweet = new Tweet();
+    $tweet->loadFromDB($conn, $tweetId);
+    $tweetUserId = $tweet->getUserId();
+    $userId = (int) $_SESSION['loggedUserId']; 
+  
     
-    if($commentText){
+    
+    if($commentText && $tweetUserId != $userId){
           
         $comment = new Comment();
         
         //id zalogowanego uzytkownika
-        $userId = (int) $_SESSION['loggedUserId']; 
+        
         //var_dump($userId);
         $comment->setUserId($userId);
         
@@ -71,16 +77,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' &&
         $comment->createComment($conn);
         //$commentUserId = $comment->
         
-        
-        //dodatkowo ALL strona z wszystkimi uzytkownikami 
-        //widzimy tweety i komentarze, 
-        //zamiast dodaj tweet , wyslij wiadomosc 
-        //inbox - odebrane / wyslane  
-        
     }
-    else{
-        echo "Nieprawidlowy tekst komentarza.<br>";
-    }
+//    else{
+//        echo "Nieprawidlowy tekst komentarza.<br>";
+//    }
 }
  
 if($tweetId){

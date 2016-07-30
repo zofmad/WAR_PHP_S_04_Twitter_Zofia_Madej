@@ -14,8 +14,7 @@
 
 //logowanie z sesji - jesli jest taki indeks 
 session_start();
-if(!isset($_SESSION['loggedUserId'])){//jesli nie jest ustawione, to sie nie zalogowal
-    
+if(!isset($_SESSION['loggedUserId'])){//jesli nie jest ustawione, to sie nie zalogowal 
     //przesylanie na strone logowania
     header("Location: login.php");//do przekierowania na inna strone
 }
@@ -24,8 +23,9 @@ Id uzytkownika: <?php echo $_SESSION['loggedUserId'];//moze byc bez srednika ? z
 ?> 
 <meta charset="UTF-8">
 <a href='logout.php'>Logout</a>
-<a href='userDisplay.php?user_id=13'>userDisplay</a>
-
+<a href='allUsers.php'>Strona z wszystkimi uzytkownikami</a>
+<a href='editProfile.php'>Edytuj profil</a>
+<a href='userMessages.php'>Twoje wiadomości</a>
 
 <!--formularz do stworzenia wpisu-->
 

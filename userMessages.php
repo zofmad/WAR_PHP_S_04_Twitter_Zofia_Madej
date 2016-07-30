@@ -7,16 +7,16 @@
  * and open the template in the editor.
  */
 
-//strona z wiadomosciami
-
-if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id']))){
-   // header('Location: index.php');
+//strona z wiadomosciami - inbox
+session_start();
+if(!isset($_SESSION['loggedUserId'])){
+    header('Location: index.php');
 }
 require_once 'src/common.php';
 //    require_once ''
 
-$userId = is_numeric($_GET['user_id']) ? 
-        (int) $_GET['user_id'] : null;
+$userId = is_numeric($_SESSION['loggedUserId']) ? 
+        (int) $_SESSION['loggedUserId'] : null;
 
 if($userId){
   

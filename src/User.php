@@ -38,8 +38,8 @@ class User {
     }
     
     static public function getUserByEmail(mysqli $conn, $email){
-        $sql="SELECT * FROM User WHERE email = '$email'";
-        $result=$conn->query($sql);
+        $sqlLoadUser="SELECT * FROM User WHERE email = '$email'";
+        $result=$conn->query($sqlLoadUser);
         if($result->num_rows == 1){
             $row = $result->fetch_assoc();
             $user = new User();// jesli jest taki email tworzymy uzytkownika
@@ -53,6 +53,27 @@ class User {
         else{
             return false;
         }      
+    }
+    
+    static public function loadAllUsers(mysqli $conn){
+        $sqlLoadUsers = "SELECT * FROM User";
+        $result = $conn->query($sqlLoadUsers);
+        if($result){
+            $users = array();
+            if($result->num_rows > 0){
+                foreach($result as $row){
+                    $user = new User();
+                    $user->id = $row['id'];
+                    $user->email = $row['email'];
+                    $user->password = $row['password'];
+                    $user->fullName = $row['fullName'];
+                    $user->active = $row['active'];
+                    $users[] = $user;
+                }
+            return $users;
+            } 
+        }
+        return [];
     }
 
     private $id;
@@ -120,19 +141,20 @@ class User {
             } 
         } 
         else {
-            $sql="UPDATE User SET"
-                    . "email = '$this->email',"
-                    . "password = '$this->password,"
-                    . "fullName = '$this->fullName',"
-                    . "active = '$this->active'"
-                    . "WHERE id= $this->id";   
+            $sql="UPDATE User SET "
+                    . "email='$this->email',"
+                    . "password='$this->password',"
+                    . "fullName='$this->fullName',"
+                    . "active='$this->active'"
+                    . "WHERE id=$this->id";   
                     ////napisy-musza byc apostrofy
                     // liczby nie 
             
-            if($conn->query($sql)){
+            if($conn->query($sql)){ 
                 return $this;
             }
             else{
+                echo $conn->error.'<br>';
                 return false;
             }    
         }  
@@ -160,7 +182,7 @@ class User {
                 . "email: $this->email, "
                 . "pelne imie: $this->fullName. <br>";
     }
-    
+    //niewykorzystana metoda nastawiania id usera
     public function setId($id){
         $this->id= is_integer($id) ? $id : -1;
         return $this;
@@ -181,7 +203,7 @@ class User {
     } 
     
     public function setFullName($fullName){
-        $this->fullName=is_string($fullName)?$fullName:'';
+        $this->fullName = is_string($fullName) ? $fullName : '';
         return $this;  
     }
     
@@ -210,3 +232,6 @@ class User {
         return $this->active;
     }  
 }
+
+$user = new User();
+

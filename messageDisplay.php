@@ -7,17 +7,19 @@
  * and open the template in the editor.
  */
 
-
+session_start();
 //strona wiadomosci
 
 if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['message_id']))){
-    //header('Location: index.php');
+    header('Location: index.php');
 }
     
     require_once 'src/common.php';
-    
+    $userId = is_numeric($_SESSION['loggedUserId']) ? 
+            (int) $_SESSION['loggedUserId'] : null;
     $messageId = is_numeric($_GET['message_id']) ? 
             (int) $_GET['message_id'] : null;
+    
     if($messageId){
         
         echo "Informacje o wiadomosci:<br>";
@@ -25,11 +27,15 @@ if(!($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['message_id']))){
         $message = new Message();
         $message->loadFromDB($conn, $messageId);
         //$message->showMessage($conn);
+        //id odbiorcy wiadomosci
+        $receiverId = $message->getReceiverId();
         //oznaczenie wiadomosci jako przeczytana -  
         //- zmiana wartosci atrybutu isRead
-        $message->setIsRead(1);
-        //zapis do bazy danych  
-        $message->updateMessage($conn);
+        if($receiverId == $userId){
+            $message->setIsRead(1);
+            //zapis do bazy danych  
+            $message->updateMessage($conn);
+        }
 
         //nadawca wiadomosci
         $senderId = $message->getSenderId();

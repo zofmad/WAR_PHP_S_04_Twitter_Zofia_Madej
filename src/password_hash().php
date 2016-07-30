@@ -9,5 +9,5 @@
 $password='gssdfg';//hashownaie-zeby ktos nie mogl sie dotsac do naszej bazy danych
 
 
-var_dump(password_hash($password,PASSWORD_DEFAULT)); //zawsze zwraca str o 
+var_dump(password_hash($password, PASSWORD_DEFAULT)); //zawsze zwraca str o 
 //dlugosci 60, najlepiej uzywam wdluzszej kolumny VARCHAR(255), bo w pryszlosci moze sie zmienic algorytm

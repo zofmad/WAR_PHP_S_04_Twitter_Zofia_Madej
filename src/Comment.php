@@ -16,7 +16,7 @@ class Comment{
 //niepotrzebne userId
         
         $sqlLoadComment = "SELECT * FROM Comment 
-            WHERE Comment.tweet_id=1 
+            WHERE Comment.tweet_id=$tweetId 
             ORDER BY Comment.creation_date DESC;";
         
         $result=$conn->query($sqlLoadComment);

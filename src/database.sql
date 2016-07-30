@@ -25,6 +25,7 @@ CREATE TABLE Tweet(
     text VARCHAR(140) NOT NULL, 
     PRIMARY KEY(id),
     FOREIGN KEY (user_id) REFERENCES User (id)
+    ON DELETE CASCADE
 )
 
 CREATE TABLE Comment(
@@ -34,8 +35,10 @@ CREATE TABLE Comment(
     creation_date DATETIME NOT NULL,
     text TEXT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES User (id),
+    FOREIGN KEY (user_id) REFERENCES User (id)
+    ON DELETE CASCADE,
     FOREIGN KEY (tweet_id) REFERENCES Tweet (id)
+    ON DELETE CASCADE
 )
 
 CREATE TABLE Message(
@@ -46,8 +49,10 @@ CREATE TABLE Message(
     creation_date DATETIME NOT NULL,
     is_read TINYINT DEFAULT 0,
     PRIMARY KEY (id),
-    FOREIGN KEY (sender_id) REFERENCES User(id),
+    FOREIGN KEY (sender_id) REFERENCES User(id)
+    ON DELETE CASCADE,
     FOREIGN KEY (receiver_id) REFERENCES User(id)
+    ON DELETE CASCADE
 )
 
 -- mozna TINYINT(1)
